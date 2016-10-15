@@ -1,3 +1,7 @@
+/*
+ * vim: set ft=rust:
+ * vim: set ft=reason:
+ */
 let module Naive = {
   let xmap f xf r a => xf r (f a);
   let xfilter predicate xf r a => predicate a ? xf r a : r;
@@ -36,6 +40,11 @@ let maybe_numbers = [Some 1, None, Some 2, None];
 let xf = xmap inc >>> xmap unwrap_optional >>> xfilter filter_numbers;
 
 let only_incremented_numbers = xlist xf maybe_numbers;
+
 /*
     only_incremented_numbers : list int = [2, 3]
  */
+type reducingFn 'r 'a =
+  | Reducer ('r => 'a => 'r) :reducingFn 'r 'a;
+
+type transducer 'a 'b = {t: 'r .reducingFn 'r 'b => reducingFn 'r 'a};
