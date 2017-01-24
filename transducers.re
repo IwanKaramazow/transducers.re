@@ -1,7 +1,3 @@
-/*
- * vim: set ft=rust:
- * vim: set ft=reason:
- */
 let module Naive = {
   let xmap f xf r a => xf r (f a);
   let xfilter predicate xf r a => predicate a ? xf r a : r;
